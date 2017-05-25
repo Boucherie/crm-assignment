@@ -24,7 +24,7 @@ class CRM
     puts 'Enter a number: '
   end
 
-  def call_option
+  def call_option(user_selected) #get this to work?
     case user_selected
       when 1 then add_new_contact
       when 2 then modify_existing_contact
@@ -32,9 +32,10 @@ class CRM
       when 4 then display_all_contacts
       when 5 then search_by_attribute
       when 6 then exit(true)
+    end
   end
 
-  def add_new_contact(new_contact)
+  def add_new_contact
     print 'Enter First Name: '
     first_name = gets.chomp
 
@@ -48,6 +49,7 @@ class CRM
     note = gets.chomp
 
     new_contact = Contact.create(first_name, last_name, email, note)
+    print = "new_contact"
   end
 
   def modify_existing_contact
@@ -62,6 +64,7 @@ class CRM
     puts "Enter the new value for that contact: "
     value = gets.chomp
     modified_value.update(attribute, value)
+
     #.update(attribute, value)
   end
 
@@ -74,7 +77,8 @@ class CRM
   end
 
   def display_all_contacts
-    print Contacts.all
+    full_list = Contact.all
+    print "#{full_list}"
   end
 
   def search_by_attribute
@@ -82,9 +86,9 @@ class CRM
     attribute = gets.chomp
     print "Enter a value: "
     value = gets.chomp
-    Contact.find_by(attribute, value)
+    attribute_searched = Contact.find_by(attribute, value)
+    print "#{attribute_searched}"
   end
-
 end
 
 
