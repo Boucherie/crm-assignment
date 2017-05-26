@@ -1,3 +1,7 @@
+# require 'minitest/autorun'
+# require 'minitest/pride'
+# require_relative 'contact_test'
+
 class Contact
 
   # This method should initialize the contact's attributes
@@ -54,6 +58,8 @@ class Contact
       self.last_name = value
     elsif attribute == "email"
       self.email = value
+    elsif attribute == "note"
+      self.note = value
     end
   end
 
