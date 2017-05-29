@@ -2,9 +2,9 @@ require_relative 'contact.rb'
 
 class CRM
 
-  def initialize(name)
-    @name = name
-  end
+  # def initialize(name)
+  #   @name = name
+  # end
 
   def main_menu
     while true # repeat indefinitely
@@ -48,7 +48,14 @@ class CRM
     print 'Enter a Note: '
     note = gets.chomp
 
-    new_contact = Contact.create(first_name, last_name, email, note)
+    new_contact = Contact.create(
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      note: note
+    )
+    # new_contact =
+    # Contact.create(first_name, last_name, email, note)
     print = "new_contact"
   end
 
@@ -56,7 +63,8 @@ class CRM
     puts "Enter the first name of the contact you want to change: "
     value_find = gets.chomp
 
-    modified_value = Contact.find_by("first_name", value_find)
+    update(first_name) => value_find
+    Contact.find_by("first_name", value_find)
 
     puts "Enter the attribute you want to modify: "
     attribute = gets.chomp
