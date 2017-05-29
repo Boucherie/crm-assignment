@@ -1,12 +1,18 @@
-# require 'minitest/autorun'
-# require 'minitest/pride'
-# require_relative 'contact_test'
+# require 'activerecord'
+# require 'mini_record'
 
-class Contact
+gem "activerecord", "=4.2.7"
 
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'films-ar.sqlite3')
+
+class Contact < ActiveRecord::Base
+  field :first_name, as: :string
+  field :last_name, as: :string
+  field :email, as: :string
+  field :notes, as: :text
   # This method should initialize the contact's attributes
-  attr_accessor :first_name, :last_name, :email, :note
-  attr_reader :id
+  # attr_accessor :first_name, :last_name, :email, :note
+  # attr_reader :id
 
   @@contacts = []
   @@next_id = 1000
@@ -24,9 +30,18 @@ class Contact
 
   # This method should call the initializer,
   # store the newly created contact, and then return it
+
+
+
   def self.create(first_name, last_name, email, note = "n/a")
-    new_contact = Contact.new(first_name, last_name, email, note)
-    @@contacts << new_contact
+    new_contact = Contact.create(
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      note: note
+    )
+    # new_contact = Contact.new(first_name, last_name, email, note)
+    # @@contacts << new_contact
     new_contact
   end
 
@@ -123,4 +138,10 @@ class Contact
 
   # Feel free to add other methods here, if you need them.
 
+end
+
+Contact.auto_upgrade!
+
+at_exit do
+  ActiveRecord::Base.connection.close
 end
