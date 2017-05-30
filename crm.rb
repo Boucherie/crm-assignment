@@ -63,15 +63,15 @@ class CRM
     puts "Enter the first name of the contact you want to change: "
     value_find = gets.chomp
 
-    update(first_name) => value_find
-    Contact.find_by("first_name", value_find)
+    update(first_name: value_find)
+    Contact.find_by(first_name: value_find)
 
     puts "Enter the attribute you want to modify: "
     attribute = gets.chomp
 
     puts "Enter the new value for that contact: "
     value = gets.chomp
-    modified_value.update(attribute, value)
+    modified_value.update(attribute => value)
 
     #.update(attribute, value)
   end
@@ -79,7 +79,7 @@ class CRM
   def delete_contact # these need a few if statements
     puts "Enter the first name of the contact you want to delete: "
     value_find = gets.chomp
-    removed_contact = Contact.find_by('first_name', value_find)
+    removed_contact = Contact.find_by(first_name: value_find)
     puts "Contact deleted: "
     print removed_contact.delete
   end
@@ -94,11 +94,15 @@ class CRM
     attribute = gets.chomp
     print "Enter a value: "
     value = gets.chomp
-    attribute_searched = Contact.find_by(attribute, value)
-    print "#{attribute_searched}"
+    attribute_searched = Contact.find_by(attribute => value)
+    print "#{value}"
   end
 end
 
+#
+# crm_app = CRM.new("CRM app")
+# crm_app.main_menu
 
-crm_app = CRM.new("CRM app")
-crm_app.main_menu
+at_exit do
+  ActiveRecord::Base.connection.close
+end
